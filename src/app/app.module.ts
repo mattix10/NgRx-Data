@@ -1,18 +1,34 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { PostsResolver } from './posts/posts.resolver';
+import { HttpClientModule } from '@angular/common/http';
+import { entityConfig } from './entity-metadata';
+import { environment } from './../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { EffectsModule } from '@ngrx/effects';
+import { EntityDataModule, EntityDataService } from '@ngrx/data';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({}),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {}
+}
